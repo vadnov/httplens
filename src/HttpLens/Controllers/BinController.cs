@@ -6,5 +6,6 @@ namespace HttpLens.Controllers
     [ApiController]
     public class BinController : ControllerBase
     {
+        
     }
 }
