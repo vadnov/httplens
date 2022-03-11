@@ -7,14 +7,14 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
-import {InspectComponent} from "./inspect/inspect.component";
+import {BinComponent} from "./bin/bin.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    InspectComponent
+    BinComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -22,8 +22,8 @@ import {InspectComponent} from "./inspect/inspect.component";
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
-      {path: 'inspect', component: InspectComponent},
-      {path: 'inspect/:id', component: InspectComponent},
+      {path: 'bin', component: BinComponent},
+      {path: 'bin/:id', component: BinComponent},
     ])
   ],
   providers: [],

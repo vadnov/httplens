@@ -7,11 +7,11 @@ import {HubConnection, HubConnectionBuilder, LogLevel} from '@microsoft/signalr'
 
 @Component({
   selector: 'app-component-inspect',
-  templateUrl: './inspect.component.html',
-  styleUrls: ['./inspect.component.css']
+  templateUrl: './bin.component.html',
+  styleUrls: ['./bin.component.css']
 })
 
-export class InspectComponent implements OnInit {
+export class BinComponent implements OnInit {
 
   binId = ''
   private _hubConnection: HubConnection = new HubConnectionBuilder()
@@ -26,11 +26,11 @@ export class InspectComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Bin - HttpLens');
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(async params => {
       let binId = params['id'];
       if (binId == undefined) {
         let myuuid = uuidv4();
-        this.router.navigate(['/inspect', myuuid]);
+        await this.router.navigate(['/bin', myuuid]);
       }
       this.binId = binId;
       this.connect();
@@ -46,11 +46,17 @@ export class InspectComponent implements OnInit {
     this._hubConnection.start()
       .then(() => {
         console.log('connection started');
-        this._hubConnection.invoke("JoinBin", this.binId).then(() => {
-          console.log('joined bin ' + this.binId);
-        });
+        if (this.binId != undefined) {
+          this._hubConnection.invoke("JoinBin", this.binId).then(() => {
+            console.log('joined bin ' + this.binId);
+          });
+        }
       })
       .catch((err) => console.log('error while establishing signalr connection: ' + err));
   }
+
+}
+
+interface BinRequest {
 
 }

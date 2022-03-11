@@ -1,11 +1,13 @@
+using System.Collections.Immutable;
 using System.Text;
 using HttpLens.Hubs;
+using HttpLens.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace HttpLens.Controllers
 {
-    [Route("[controller]")]
+    [Route("b")]
     [ApiController]
     public class BinController : ControllerBase
     {
@@ -15,10 +17,12 @@ namespace HttpLens.Controllers
         {
             _hubContext = hubContext;
         }
-        [Route("{binId}")]
-        public async Task<IActionResult> Index(string binId)
+        
+        [Route("{*slug}")]
+        public async Task<IActionResult> Index(string slug)
         {
-            
+            slug ??= "";
+            var binId = slug.Split("/")[0] ?? "";
             var sb = new StringBuilder();
             sb.Append($"{Request.Method} {Request.Path}{Request.QueryString}\n\n");
             foreach (var header in Request.Headers)
@@ -26,7 +30,16 @@ namespace HttpLens.Controllers
                 sb.Append($"{header.Key}: {string.Join(", ", header.Value)}\n");
             }
 
-            await _hubContext.Clients.All.SendAsync("RequestReceived", sb.ToString());
+            var request = new BinRequest()
+            {
+                Method = Request.Method,
+                Headers = Request.Headers
+                    .ToDictionary(
+                        o => o.Key, 
+                        o => string.Join(", ", o.Value)),
+            };
+
+            await _hubContext.Clients.Group(binId).SendAsync("RequestReceived", request);
 
             return Ok(sb.ToString());
         }
