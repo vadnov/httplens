@@ -1,6 +1,6 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow"
   >
     <div class="container-fluid">
       <a class="navbar-brand" [routerLink]="['/']">HttpLens</a>
@@ -26,6 +26,13 @@
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a class="nav-link text-dark" [routerLink]="['/bin']">New Bin</a>
+          </li>
+          <li *ngIf="binId.length > 0">
+            <a class="nav-link text-dark" [routerLink]="['/bin/' + binId]">Current Bin: {{ binId }}</a>
+
+          </li>
+          <li *ngIf="binId.length > 0">
+            <a class="nav-link text-dark" [routerLink]="['/bin/' + binId + '/help']">Help</a>
           </li>
         </ul>
       </div>

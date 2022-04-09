@@ -6,8 +6,8 @@ import {RouterModule} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
-import {HomeComponent} from './home/home.component';
-import {BinComponent} from "./bin/bin.component";
+import {HomeComponent} from './modules/home/home.component';
+import {BinComponent} from "./modules/bin/bin.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import {BinComponent} from "./bin/bin.component";
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'bin', component: BinComponent},
       {path: 'bin/:id', component: BinComponent},
+      {path: 'bin/:id/help', component: BinComponent},
     ])
   ],
   providers: [],
