@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-2 bg-light sticky-top">
+    <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+      <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+        <li class="nav-item" *ngFor="let request of requests">
+          <a class="nav-link py-3 px-2" title="">
+            {{ request.received | date : 'short' }} {{ request.method }}
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="requests.length == 0">
+          &nbsp;
+        </li>
+        <li class="nav-item" *ngIf="requests.length == 0">
+          Waiting for requests
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm p-3">
+
+    <div *ngFor="let request of requests">
+      <span>{{ request.method }}</span> &nbsp; <span>{{ request.received | date : 'short' }}</span><br />
+      <div> {{ request.body }} </div>
+      <div>
+        <div *ngFor="let header of request.headers | keyvalue">
+          {{ header.key }}: {{ header.value }}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="requests.length == 0">
+      <h4>HTTPLens.com lets you inspect requests sent to a webhook URL.</h4>
+      <p>Use the following URL:
+        <input type="text" value="{{ binUrl }}" class="form-control" />
+      </p>
+    </div>
+  </div>
+</div>
+
+

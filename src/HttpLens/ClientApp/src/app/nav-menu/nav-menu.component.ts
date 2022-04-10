@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BinRequestsService} from "../modules/bin/shared/bin-requests.service";
+import {BinRequestsService} from "../modules/httpbin/shared/bin-requests.service";
 
 @Component({
   selector: 'app-nav-menu',

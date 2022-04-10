@@ -7,7 +7,7 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './modules/home/home.component';
-import {BinComponent} from "./modules/bin/bin.component";
+import {BinComponent} from "./modules/httpbin/bin.component";
 
 @NgModule({
   declarations: [

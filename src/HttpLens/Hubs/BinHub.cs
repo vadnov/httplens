@@ -4,9 +4,10 @@ namespace HttpLens.Hubs;
 
 public class BinHub : Hub
 {
-
-    public Task JoinBin(string binId)
+    public async Task JoinBin(string binId)
     {
-        return Groups.AddToGroupAsync(Context.ConnectionId, binId);
+        var host = Context.GetHttpContext()!.Request.Host;
+        await Clients.Caller.SendAsync("Init", $"https://{host}/b/{binId}");
+        await Groups.AddToGroupAsync(Context.ConnectionId, binId);
     }
 }
